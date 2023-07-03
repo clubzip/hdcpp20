@@ -15,6 +15,18 @@ struct PAIR<T1, T2, true> : public T1
 	T2 second;
 };
 
+/*
+// C++20 부터는 PAIR 를 위처럼 만들필요 없이
+// [[no_unique_address]] 를 사용하면 됩니다.
+template<typename T1, typename T2>
+struct PAIR
+{
+	[[no_unique_address]] T1 first;
+	[[no_unique_address]] T2 second;
+};
+*/
+
+
 
 // C++에는 생각보다 empty 가 많습니다
 // => 대부분의 함수 객체
@@ -40,6 +52,9 @@ class unique_ptr
 //	T* addr;
 //	D  del;   // 삭제자
 
+	// STL 내부에 아래와 같은 개념의 "compressed pair" 라는 클래스가
+	// 널리 사용됩니다.
+	// empty 를 보관할때 메모리 사용을 최소화 하는 기술입니다.
 	PAIR<D, T*> pa;
 
 public:
