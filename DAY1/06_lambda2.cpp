@@ -28,7 +28,7 @@ int main()
 
 	std::unique_ptr<int, decltype([](int* p) { free(p); }) > p3(static_cast<int*>(malloc(sizeof(int))));
 				// C++20 부터 됩니다.
-				// C++17 이전에는 아래 처럼 해야 합니다.
+				
 
 }
 
