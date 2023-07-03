@@ -13,8 +13,9 @@ void f(std::source_location loc = std::source_location::current())
 int main()
 {
 //34567890
-	f();
-f();
+	f();	// tab 사용
+    f();	// space 사용
+f( );
 }
 
 
