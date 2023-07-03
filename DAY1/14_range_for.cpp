@@ -26,7 +26,7 @@ int main()
 	}
 
 	// C++20 : init 을 가진 range - for 제공
-	for (auto v = std::vector{ 1,2,3,4 }; auto e : v)
+	for (std::vector v{ 1,2,3,4 }; auto e : v)
 	{
 
 	}
