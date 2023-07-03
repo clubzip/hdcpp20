@@ -26,11 +26,13 @@ int main()
 	decltype( [](int a, int b) { return a + b; } ) f; // C++17까지는 에러
 													  // C++20 부터 가능
 
-
 	// 2. C++17 까지 람다 표현식이 만드는 타입은 디폴트 생성자가 없습니다
 	//    C++20 부터는 캡쳐 하지 않은 람다에 한해서 디폴트 생성자 제공
-	auto add = [](int a, int b) {};
+	auto add = [](int a, int b) { return a + b; };
 
 	decltype(add) f2;	// C++20 은 에러 아님. 디폴트 생성자 가능
 						// C++20 이전은 에러.
+
+	// 참고, 람다표현식이 만드는 타입은 복사 생성자는 있습니다.(C++11부터)
+	decltype(add) f3(add); // ok. C++11 부터!
 }
