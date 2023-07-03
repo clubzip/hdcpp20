@@ -12,7 +12,7 @@ template<typename ... ARGS> void foo(int a1, ARGS&& ... args)
 	auto f2 = [ v1, a1 ](int x) { return x + v1 + a1; };
 	
 	// 3. C++20 부터. 가변인자 템플릿의 "파라미터 팩"도 캡쳐 가능합니다.
-	auto f3 = [ ...arg = std::forward<ARGS>(args) ](int a)
+	auto f3 = [ ...args = std::forward<ARGS>(args) ](int a)
 	{
 		(std::cout << ... << args); // C++17 fold expression
 	};
