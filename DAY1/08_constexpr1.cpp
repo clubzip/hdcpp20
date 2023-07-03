@@ -40,8 +40,9 @@ int main()
 
 
 	auto ret2 = add(x, y);
-	std::cout << ret1.second << std::endl;
+	std::cout << ret2.second << std::endl;
+
 
 	constexpr auto ret3 = add(1, 2);
-	std::cout << ret1.second << std::endl;
+	std::cout << ret3.second << std::endl;
 }
