@@ -1,6 +1,21 @@
 #include <compare>
 #include <iostream>
 
+
+// 핵심 1. operator<=> 를 "= default" 로 요청하면
+// => "멤버가 놓인 순서대로, 모든 멤버에 대해서 <=> 연산으로 비교"
+// => 아래 직접 만든 구현과 동일한 원리
+// => 이 경우, "==" 연산자를 별도로 제공할 필요 없습니다.
+
+// 핵심 2. operator<=> 를 사용자가 만드는 경우
+// => "operator==" 도 반드시 제공해야 합니다.
+// => "operator==" 는 대부분 <=> 와는 다르게 최적화 할수 있기 때문에
+
+
+
+
+
+
 class Point3D
 {
     int x;
@@ -34,10 +49,6 @@ public:
         return x == other.x && y == other.y && z == other.z;
     }
 };
-
-
-
-
 
 
 
