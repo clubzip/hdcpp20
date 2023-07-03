@@ -18,7 +18,6 @@ int main()
 	std::cout << add2(3.4, 4.2) << std::endl; // 7.6
 	std::cout << add2(3,   4.2) << std::endl; // 7.2
 	std::cout << add2(3.4, 4)   << std::endl; // 7.4
-
 }
 // C++14 generic lambda 의 원리
 // => 핵심 2개의 인자가 서로 다른 템플릿
