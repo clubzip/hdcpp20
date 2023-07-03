@@ -12,8 +12,8 @@
 // 
 // C++20 에서 4개 추가
 // [[nodiscard(msg)]] 
-// [[likeyly]]
-// [[unlikeyly]]
+// [[likely]]
+// [[unlikely]]
 // [[no_unique_address]]
 
 [[nodiscard("my message")]] int* allocate(int size)
