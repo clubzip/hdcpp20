@@ -15,3 +15,7 @@ int main()
 	constexpr int c = std::accumulate(std::begin(v), std::end(v), 0);
 
 }
+
+// 결론 
+// 1. C++20 에서 constexpr 이 더욱 강화 되고
+// 2. std::is_constant_evaluated() 가 제공됩니다.
