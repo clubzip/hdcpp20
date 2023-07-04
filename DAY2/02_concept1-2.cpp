@@ -20,7 +20,7 @@ public:
 
 
 template<typename T>
-concept container = requires(T & c)
+concept container = requires(T&  c)
 {
 	// 아래 처럼 만들면
 	// 1. std::begin() 의 인자로 보낼수 있거나
