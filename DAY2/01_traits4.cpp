@@ -13,7 +13,6 @@ using remove_pointer_t = typename std::remove_pointer<T>::type;
 template<typename T>
 constexpr bool is_pointer_v = std::is_pointer<T>::value;
 
-
 template<typename T>
 void foo(T a)
 {
