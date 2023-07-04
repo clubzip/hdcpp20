@@ -19,6 +19,8 @@ typename T::value_type sum(T first, T last)
 {
 	typename T::value_type s = 0;
 
+//	auto s = *first;
+
 	while (first != last)
 	{
 		s += *first;
