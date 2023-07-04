@@ -3,10 +3,30 @@
 #include <list>
 #include <iterator>
 
+// std::begin(v) 에서
+// 1. v 가 STL container 이면 : T 는 객체형 반복자( class 로 설계된)
+// 2. v 가 raw array 이면     : T 는 raw pointer( int* )
+
+// 반복자의 2가지 종류
+// 1. class 로 만들어진 반복자 ( vector 나 list 반복자 )
+// 2. raw pointer => C++에서 raw pointer 도 반복자의 종류입니다.
+
+// 반복자의 종류가 위 2가지가 있기때문에 아래 sum 같은 함수 만들기가
+// 어렵습니다.
+// 이 문제를 해결하는 도구가 "iterator_traits" 입니다.
+
+template<typename T> struct iterator_traits
+{
+	using value_type = T::value_type;
+};
+
 template<typename T>
 typename T::value_type sum(T first, T last)
 {
-	typename T::value_type s = 0;
+//	typename T::value_type s = 0;
+
+	typename iterator_traits<T>::value_type s = 0;
+
 
 	while (first != last)
 	{
