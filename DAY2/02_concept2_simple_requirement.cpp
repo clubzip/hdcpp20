@@ -58,9 +58,17 @@ bool b6 = signed_integer<int>; // true
 // ex5. require expression 사용
 // => T의 타입 추론은 "함수템플릿" 과 같습니다.   ============> "타입추론" 참고
 // => 즉, T a 일때 addable<int[3]> 으로 전달하면 T=int*
+//    T& a 로 하면 addable<int[3]> 으로 전달시   T=int[3] 입니다.
 template<typename T>
 concept addable = requires(T a, T b) // => 이부분을 "require expression"
 {                                    // => 이라고 합니다.
+    a + b;
+};
+
+// ex6. 타입인자 여러개도 가능합니다.
+template<typename T, typename U>
+concept addable_two_type = requires(T a, U b) 
+{                                    
     a + b;
 };
 
@@ -70,5 +78,6 @@ int main()
 {
     std::cout << addable<int> << std::endl;     // true
     std::cout << addable<Point> << std::endl;   // false 
+    std::cout << addable_two_type<int, double> << std::endl; // true
 
 }
