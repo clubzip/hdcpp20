@@ -29,6 +29,8 @@ void container_type(T& c)
 //	typename container_traits<T>::value_type n2;
 
 	cont_value_t<T> n2; // C++20의 range_value_t 와 거의 유사
+						// std::iter_value_t<T> 도 모양의 거의 유사
+						// 즉, 모두 alias 로 만들어 놓은것
 
 	std::cout << typeid(n2).name() << std::endl;
 }
