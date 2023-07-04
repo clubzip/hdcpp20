@@ -35,4 +35,17 @@ int main()
 	auto p1 = myfind(std::begin(v), std::end(v), 3);
 	auto p2 = myfind(std::begin(v), std::end(v), [](int a) { return a % 3 == 0; });
 
+	/*
+	std::sort(v.begin(), v.end());
+	std::sort(v); // 왜!! STL 에는 컨테이너를 직접 보내는 버전이 없나요 ??
+				// => 만들수 없었습니다
+
+	// 아래 버전을 생각해 보세요
+	std::sort(v, 비교함수버전);		// 인자가 2개인 템플릿
+	std::sort(v.begin(), v.end());	// 인자가 2개인 템플릿
+							// => 결국 모양이 모두 인자가 2개인 템플릿입니다.
+							// => 그래서 만들수 없었습니다.
+							// => 하지만 C++20 부터는 컨테이너 버전 있습니다.
+							//		=> 내일!!!
+	*/
 }
