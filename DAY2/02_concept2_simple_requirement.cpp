@@ -25,8 +25,8 @@ constexpr bool f3() { return true; }
 consteval bool f4() { return true; }
 
 //                                이부분이 컴파일시간에 bool 값으로 결정가능하면 ok
-template<typename T> concept C1 = f1(); // error ( 사용하면 에러 입니다. C1<int>)
-template<typename T> concept C2 = f2(); // error
+//template<typename T> concept C1 = f1(); // error ( 사용하면 에러 입니다. C1<int>)
+//template<typename T> concept C2 = f2(); // error
 template<typename T> concept C3 = f3(); // ok
 template<typename T> concept C4 = f4(); // ok
 
@@ -51,10 +51,24 @@ bool b5 = pointer<int>;           // 위에서 만든 concept 사용
 template<typename T>
 concept signed_integer = std::is_integral_v<T> && std::is_signed_v<T>;
 
-bool b6 = signed_integer<int>;
+bool b6 = signed_integer<int>; // true
 
+
+
+// ex5. require expression 사용
+// => T의 타입 추론은 "함수템플릿" 과 같습니다.   ============> "타입추론" 참고
+// => 즉, T a 일때 addable<int[3]> 으로 전달하면 T=int*
+template<typename T>
+concept addable = requires(T a, T b) // => 이부분을 "require expression"
+{                                    // => 이라고 합니다.
+    a + b;
+};
+
+class Point {};
 
 int main()
 {
+    std::cout << addable<int> << std::endl;     // true
+    std::cout << addable<Point> << std::endl;   // false 
 
 }
