@@ -17,11 +17,19 @@ template<typename T, int N> struct container_traits<T[N]>
 	using value_type = std::remove_all_extents_t<T>;
 };
 
+// 이럴때는 C++14 의 using alias 를 사용해서 사용하기 쉽게 해주세요
+template<typename T>
+using cont_value_t = typename container_traits<T>::value_type;
+
 template<typename T>
 void container_type(T& c)
 {	
 //	typename T::value_type n1; // T가 배열이면 error
-	typename container_traits<T>::value_type n2;
+
+//	typename container_traits<T>::value_type n2;
+
+	cont_value_t<T> n2; // C++20의 range_value_t 와 거의 유사
+
 	std::cout << typeid(n2).name() << std::endl;
 }
 
