@@ -43,10 +43,18 @@ concept container = requires(T & c)
 	std::ranges::end(c);
 };
 
-
 template<typename T> void check(T& c)
 {
-	bool b = container<T>;
+//	bool b = container<T>;
+		
+	// 이미 표준에 위의 container 와 유사한것이 있습니다.
+	// C++20 부터는 "container" 라는 용어 보다 "range" 라는 용어를 사용합니다.
+	// => 의미는 내일 자세히.. 
+
+	// std::ranges  : namespace 이름
+	// range<T>     : concept 이름.
+	bool b = std::ranges::range<T>;
+
 	std::cout << b << std::endl;
 }
 
