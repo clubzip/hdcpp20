@@ -19,4 +19,5 @@ int main()
 {
     std::cout << has_value_type<A> << std::endl;
     std::cout << has_value_type< std::vector<int> > << std::endl;
+    std::cout << has_value_type< int > << std::endl;
 }
