@@ -20,11 +20,24 @@ void iter_type(T first)
 	std::iter_value_t<T> s4;
 }
 
+template<typename T>
+void container_type(T& c)
+{
+	// T 가 컨테이너 일때, 요소의 타입을 구하는 방법
+	// C++98 스타일 - T가 배열이면 error
+	typename T::value_type n1;
 
+	// C++20 스타일 - T가 배열이라도 ok. 
+	std::ranges::range_value_t<T> n2;
+}
 
 int main()
 {
 	std::vector<int> v = { 1,2,3,4,5,6,7,8,9,10 };
+
+	iter_type(std::begin(v));
+
+	container_type(v);
 }
 
 
