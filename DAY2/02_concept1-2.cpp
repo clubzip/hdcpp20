@@ -31,10 +31,17 @@ concept container = requires(T & c)
 	// 보다 엄격하게 하려면
 	// "begin(), end() 의 반환값의 타입이 반복자 이어야 한다." 
 	// 라는 조건이 필요 합니다.
-	{ std::begin(c) } -> std::input_iterator;
-	{ std::end(c) }   -> std::input_iterator;
-};
+//	{ std::begin(c) } -> std::input_iterator;
+//	{ std::end(c) }   -> std::input_iterator;
 
+	// 위 코드 대신에 아래 처럼 해도 됩니다.
+	// std::begin(c) : c.begin()의 반환 타입을 조사하지않음
+	// std::ranges::begin(c) : c.begin()의 반환 타입이 iterator 가 아니면
+	//						   컴파일 에러!! - 내일 자세히 배우게 됩니다.
+	//						   C++20 에서 새롭게 나오는 begin()
+	std::ranges::begin(c); 
+	std::ranges::end(c);
+};
 
 
 template<typename T> void check(T& c)
