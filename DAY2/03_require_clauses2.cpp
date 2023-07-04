@@ -9,6 +9,12 @@
 // => 조건을 만족하지 않으면 사용하지 않겠다!!
 // => 동일 이름의 다른 함수가 있다면 사용가능
 
+// 용어 주의 하세요
+// concept  만들때 requires : require expression(표현식)
+// template 만들때 requires : require clauses(절)
+
+// requires 뒤에는 - traits, concept 등이 모두 올수 있습니다.
+
 template<typename T> requires std::is_integral_v<T>
 T gcd(T a, T b)
 {
