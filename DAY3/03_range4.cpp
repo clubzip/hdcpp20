@@ -19,6 +19,22 @@ take_view<T> take(T& c, std::size_t sz)
 {
 	return take_view<T>(c, sz);
 }
+//-------------------
+// Pipe line 지원하기
+struct take_view_tag
+{
+	std::size_t count;
+};
+take_view_tag take(std::size_t sz)
+{
+	return take_view_tag{ sz }; // 생성자 없어도 이렇게 가능합니다.
+}
+template<typename T>
+take_view<T> operator | (T& c, take_view_tag tag)
+{
+	return take_view<T>(c, tag.count);
+}
+
 
 int main()
 {
@@ -29,6 +45,10 @@ int main()
 
 	// 방법 2. take_view 를 생성하는 도움 함수 제공
 	auto tv2 = take(v, 5);
+
+	// 방법 3. Pipe line 를 사용해서 take_view 생성
+	auto tv3 = v | take(3);
+
 
 
 //	for (auto e : v)
