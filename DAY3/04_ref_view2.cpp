@@ -2,6 +2,12 @@
 #include <iostream>
 #include <ranges>
 
+// std::ranges::ref_view 는 결국
+// std::reference_wrapper(C++11) 의 view 버전입니다.
+
+// std::reference_wrapper(C++11) : 범용적인 용도의 이동 가능한 참조
+// std::ranges::ref_view( C++20) : view에 특화된  이동 가능한 참조
+
 template<typename T> class ref_view
 {
 	T* src;
