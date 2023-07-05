@@ -13,14 +13,15 @@ public:
 	auto begin() { return rng.begin(); }
 	auto end()   { return rng.begin() + sz; }
 };
-
 int main()
 {
-	std::vector<int> v = { 1,2,3,4,5,6,7,8,9,10 };
+	std::vector<int> v = { 1,2,3,4,5,6,7,8,9,10 }; // vector 는 자원 소유
 
 	take_view tv(v, 5); // 이 한줄을 잘생각해 보세요.
+						// v를 5개 까지만 볼수 있는 시각(view) 를 제공
 
-	for (auto e : v)
+//	for (auto e : v)
+	for (auto e : tv)
 		std::cout << e << ", ";
 
 	std::cout << std::endl;
