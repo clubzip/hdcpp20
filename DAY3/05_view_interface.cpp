@@ -34,8 +34,8 @@ class reverse_view : public view_interface< reverse_view<T> >
 public:
 	reverse_view(T& c) : container(c) {}
 
-	auto begin(){ return container.rbegin(); }
-	auto end()	{ return container.rend(); }
+	auto begin(){ return container.base().rbegin(); }
+	auto end()	{ return container.base().rend(); }
 };
 
 
