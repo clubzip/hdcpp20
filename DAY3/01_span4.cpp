@@ -51,15 +51,13 @@ int main()
     std::span<int>     sp11(x);  
     std::span<int, 10> sp12(x);  
 
-    std::cout << sp11.extent << std::endl;
-    std::cout << sp12.extent << std::endl;
+    // extent : 배열의 크기 ( 템플릿 인자로 전달한 값 꺼내기)
+    std::cout << sp11.extent << std::endl; // undefined. 전달하지 않은 경우
+    std::cout << sp12.extent << std::endl; // ok. 10
 
-    std::cout << sp11.size() << std::endl;
-    std::cout << sp11.size_bytes() << std::endl;
+    std::cout << sp11.size() << std::endl;  // 생성자 인자로 전달한 크기
+                                            // 또는 x 라는 이름을 통해서 얻은 크기
+    std::cout << sp11.size_bytes() << std::endl; // 실제 메모리 사용량
     std::cout << sp12.size() << std::endl;
     std::cout << sp12.size_bytes() << std::endl;
-
-//   int* p = x;
-//  std::span<int> sp3(p);     
-//  std::span<int> sp4(p, 10); 
 }
