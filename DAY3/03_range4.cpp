@@ -25,12 +25,12 @@ struct take_view_tag
 {
 	std::size_t count;
 };
-take_view_tag take(std::size_t sz)
+inline take_view_tag take(std::size_t sz)
 {
 	return take_view_tag{ sz }; // 생성자 없어도 이렇게 가능합니다.
 }
 template<typename T>
-take_view<T> operator | (T& c, take_view_tag tag)
+inline take_view<T> operator | (T& c, take_view_tag tag)
 {
 	return take_view<T>(c, tag.count);
 }
@@ -47,12 +47,13 @@ int main()
 	auto tv2 = take(v, 5);
 
 	// 방법 3. Pipe line 를 사용해서 take_view 생성
-	auto tv3 = v | take(3);
+	auto tv3 = v | take(3); // v | take_view_tag <= take(3) 반환타입
+							// operator|(v, take_view_tag)
 
 
 
 //	for (auto e : v)
-	for (auto e : tv2)
+	for (auto e : tv3)
 		std::cout << e << ", ";
 
 	std::cout << std::endl;
