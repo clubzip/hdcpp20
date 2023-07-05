@@ -23,9 +23,11 @@ int main()
 
 	// 핵심 3. projection 사용
 
-//	std::ranges::sort(v, std::less{}, &std::string::size );
-	std::ranges::sort(v, {}, &std::string::size);  // {} 만 전달해도 됨.
+//	std::ranges::sort(v, std::less{}, &std::string::size );  // less는 < 연산
+//	std::ranges::sort(v, {}, &std::string::size);  // {} 만 전달해도 됨.
 											// 디폴트 타입이 less로 지정되었으므로
+
+	std::ranges::sort(v, std::greater{}, &std::string::size);
 
 
 	for (const auto& e : v)
