@@ -20,6 +20,8 @@ int main()
 
 	// 핵심 3. 멤버 함수 주소를 담는 포인터를 만드는 방법 
 	void(Dialog::*f2)(int) = &Dialog::close1;
+					// 일반함수는 "foo" 만 해도 "&foo" 의 의미로 사용가능 하지만
+					// 멤버 함수는 주소를 얻을때 반드시 & 가 필요 합니다.
 
 	// 핵심 4. 멤버 함수 포인터로 함수 호출하는 방법
 //	f2(10); // 멤버 함수는 호출하려면 객체(this)가 필요한데..
@@ -44,3 +46,30 @@ int main()
 	std::invoke(f1, 10);		// f1(10)
 	std::invoke(f2, &dlg, 10);	// (dlg.*f2)(10);
 }
+/*
+class Point
+{
+	int x;
+	int y;
+public:
+	// 함수를 여기에 만들어도 컴파일되면 결국
+	// 구조체 + 함수로 분리됩니다.
+	void set(int a, int b)
+	{
+		
+	}
+};
+// 컴파일되면 아래 코드 입니다.
+class Point
+{
+	int x;
+	int y;
+};
+void Point_set(Point* this, int a, int b)
+{
+}
+*/
+// non-static 멤버 데이타 : 객체를 생성해야 메모리에 놓이게 됩니다.
+// static 멤버 데이타     : 객체가 없어도 메모리에 존재
+// 
+// 멤버 함수(static 이건 아니건)  : 항상 코드메모리에 존재 합니다.
