@@ -15,4 +15,6 @@ int main()
 	Graphics::draw_pixel(pt);
 
 	draw_pixel(pt); // Graphics:: 가 없는데, 에러가 아닙니다.
+					// pt가 Graphics 안에 있으므로 
+					// draw_pixel 을 찾을때 자동으로  Graphics 도 검색
 }
