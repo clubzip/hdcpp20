@@ -20,9 +20,8 @@ int main()
 
 	// 방법 2. 함수 버전
 	auto rv2 = std::views::reverse(std::views::filter(
-							std::views::take(v, 5), [](int n) { return n % 2 == 0; }));
-
-
+							std::views::take(v, 5),
+								[](int n) { return n % 2 == 0; }));
 
 	// 방법 3. pipe line 라인 
 	// => 주의 reverse_view 의 pipe line 버전은 함수가 아닌 std::views::reverse
@@ -30,7 +29,8 @@ int main()
 				 | std::views::filter([](int n) { return n % 2 == 0; })
 				 | std::views::reverse;
 	
-	for (auto e : rv2)  // 4, 2
+//	for (auto e : rv2)  // 4, 2
+	for (auto e : v | std::views::take(5) | std::views::reverse ) 
 	{
 		std::cout << e << ", ";
 	}
