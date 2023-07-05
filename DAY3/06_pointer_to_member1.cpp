@@ -10,7 +10,6 @@ public:
 		x = a;	// this->x = a;
 		y = b;  // this->y = b;
 	}
-
 	// C++23 : 아래 처럼 만드는 문법 등장 - 내일 설명
 	// void set(this Point& self, int a, int b) {}
 
@@ -20,6 +19,9 @@ public:
 
 int main()
 {
+//	Point pt;	// Point* p = malloc(sizeof(Point))
+				// call Point::Point(p);
+
 	Point::foo(10); // 컴파일 해도 "foo(10)"
 
 	Point p1;
