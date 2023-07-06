@@ -1,9 +1,16 @@
 #include <iostream>
 #include <coroutine>
 
+#define log() std::cout << __func__ << std::endl 
+
 // C++ 코루틴은 어떻게 동작하는가 ?
 // 원리를 살펴보는 코드..
 // 주석을 잘 생각해보세요..
+
+// 핵심 : coroutine framework 를 힙에 생성할때
+// 1. promise_type 안에 operator new() 가 있으면 사용하고
+// 2. 없으면 global new 사용합니다.
+
 
 class Generator
 {
@@ -12,11 +19,29 @@ public:
 	class promise
 	{
 	public:
-		std::suspend_always initial_suspend() { return {}; }
+		std::suspend_always initial_suspend() 
+		{ 
+			log();
+			return {}; 
+		}
 		std::suspend_always final_suspend() noexcept { return {}; }
 		Generator get_return_object() { return {}; };
 		void unhandled_exception() {}
 		void return_void() {}
+
+		void* operator new(std::size_t sz)
+		{
+			void* p = ::operator new(sz);
+			printf("new : %p, %d bytes\n", p, sz);
+			return p;
+		}
+
+		void operator delete(void* p) noexcept
+		{
+			printf("delete : %p\n", p);
+			::operator delete(p);
+		}
+
 	};
 
 	using promise_type = promise;
