@@ -24,10 +24,10 @@ public:
 			log();
 			return {}; 
 		}
-		std::suspend_always final_suspend() noexcept { return {}; }
-		Generator get_return_object() { return {}; };
-		void unhandled_exception() {}
-		void return_void() {}
+		std::suspend_always final_suspend() noexcept { log();  return {}; }
+		Generator get_return_object() { log(); return {}; };
+		void unhandled_exception() { log(); }
+		void return_void() { log(); }
 
 		void* operator new(std::size_t sz)
 		{
@@ -63,8 +63,6 @@ Generator foo()
 	//    => 즉, 여기서 main 으로 반환
 
 
-
-
 	//---------------------------------------------
 	std::cout << "foo 1" << std::endl;
 
@@ -73,9 +71,7 @@ Generator foo()
 	std::cout << "foo 2" << std::endl;
 }
 
-
-
 int main()
 {
-	foo();
+	Generator g = foo();
 }
