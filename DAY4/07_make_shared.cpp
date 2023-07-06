@@ -16,8 +16,31 @@ int main()
 	std::unique_ptr<int> p3(new int);				   // bad
 	std::unique_ptr<int> p2 = std::make_unique<int>(); // good
 
+
+
 	// 왜 make_shared 가 좋은 가요 ?
-	foo( std::std::shared_ptr<int>(new int), goo() );
+	// => 아래 코드에서 (A), (B), (C)가  실행되는 순서는 정의 되어있지않습니다.
+	// => B, A, C 순서로 실행되면 안전합니다.
+	// => B, C, A 순서로 실행되고, goo() 에서 예외 나오면
+	//				=> B 에서 할당한 메모리는 누수가 됩니다.
+
+	// 핵심 : 자원을 할당하면 어떠한 다른일을 하기 전에 반드시
+	//       자원 관리 객체(스마트포인터)에 넘겨야 합니다.
+	//       중간에 다른 작업이 발생하면 안됩니다.
+	foo( std::shared_ptr<int>(new int), goo() );
+	//		(A)					(B)      (C)
+
+
+	// 그런데. 아래 처럼 하면 항상 안전합니다.
+	// std::make_shared<int>() : 1. 내부적으로 new int 하고
+	//							 2. 할당된 주소를 관리하는 스마트포인터반환
+	foo(std::make_shared<int>(), goo());
+	//	    (A)					 (B) 
+
+
+
+
+
 
 
 
