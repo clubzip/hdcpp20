@@ -55,7 +55,26 @@ public:
 	{
 		return count > 0;
 	}
+
+	// + 연산자는 counted_iterator 가 멤버로 가진 iterator T 가
+	// random access iterator 인 경우만 제공합니다.
+
+	// 핵심 : 아래 함수자체는 템플릿이 아니지만 클래스가 템플릿 이므로
+	//       클래스의 템플릿 인자의 속성에 따라 멤버함수를 제공할지 말지를 결정
+	counted_iterator& operator+(std::size_t delta) 
+		requires std::random_access_iterator<T>
+	{
+		int dx = std::min(count, delta);
+
+		count -= dx;
+		iterator += dx;
+
+		return *this;
+	}
 };
+
+
+
 
 
 int main()
@@ -69,6 +88,18 @@ int main()
 		std::cout << *ci << std::endl;
 		++ci;
 	}
+
+	//----------------------------------------
+	std::vector c{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+//	std::list   c{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+	counted_iterator ci2(c.begin(), 5);
+
+	++ci2; // ok
+
+	ci2 = ci2 + 3; // 되게 할까요 ? 안되게 할까요 ?
+					// ci2가 초기화 될때 vector 반복자(random)라면 - 허용 
+					// ci2가 초기화 될때 list 반복자(random아님)라면 - 에러 
 }
 
 
