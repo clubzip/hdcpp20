@@ -1,5 +1,6 @@
 #include <iostream>
 #include <coroutine>
+#include <thread>
 #define log() std::cout << "==============> " << __func__ << std::endl 
 
 
@@ -99,25 +100,34 @@ private:
 
 //-----------------------------------
 
-struct myawait
+struct resume_new_thread
 {
 	bool await_ready() const noexcept { log(); return false; }
 
-	void await_suspend(std::coroutine_handle<>) const noexcept { log(); }
+	void await_suspend(std::coroutine_handle<> handle ) const noexcept 
+	{ 
+		log(); 
+
+		// 새로운 스레드로 중단된 지점 이후를 실행
+		std::thread t( [handle]() { handle.resume(); });
+		t.detach();
+	}
+
 	void await_resume() const noexcept { log(); }
 };
 
 
+
+
 Generator<int> foo()
 {
-	std::cout << "foo 1" << std::endl;
+	std::cout << "foo 1 : " << std::this_thread::get_id() << std::endl;
 
-	co_await myawait{};
+	co_await resume_new_thread{};	// 주스레드는 main 으로 복귀!
+									// 새로운 스레드로 나머지 작업 수행 
 
-	std::cout << "foo 2" << std::endl;
+	std::cout << "foo 2 : " << std::this_thread::get_id() << std::endl;
 }
-
-
 
 int main()
 {
@@ -126,9 +136,8 @@ int main()
 	std::cout << "main 1" << std::endl;
 
 	g();
+
 	std::cout << "main 2" << std::endl;
-	g();
 
-	std::cout << "main 3" << std::endl;
-
+	getchar();
 }
