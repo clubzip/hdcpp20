@@ -33,9 +33,9 @@ Generator foo()
 
 	// 2. promise_type 의 생성자 호출
 
-	// 3. promise_type 의 get_return_objec()를 호출해서 Generator 생성
+	// 3. promise_type 의 get_return_object()를 호출해서 Generator 생성
 
-	// 4. promise_type 의 initial_update() 호출
+	// 4. promise_type 의 initial_suspend() 호출
 
 	// 5. (3) 에서 생성된 객체를 반환.. 
 	//    => 즉, 여기서 main 으로 반환
