@@ -95,12 +95,22 @@ int main()
 	std::list   c{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
 	counted_iterator ci2(c.begin(), 5);
-
 	++ci2; // ok
-
 	ci2 = ci2 + 3; // 되게 할까요 ? 안되게 할까요 ?
-					// ci2가 초기화 될때 vector 반복자(random)라면 - 허용 
-					// ci2가 초기화 될때 list 반복자(random아님)라면 - 에러 
+	// ci2가 초기화 될때 vector 반복자(random)라면 - 허용 
+	// ci2가 초기화 될때 list 반복자(random아님)라면 - 에러 
+
+
+	// QA
+//	if (ci2 != default_sentinel) {}  // 방법1
+//	if (ci2.is_next()) {}			//  방법2. 이렇게 하면 되지 않나요 ?
+
+	// STL 의 수 많은 알고리즘은 반복자의 종료를 확인할때 == 를 사용합니다.
+//	std::find(first, last, 3); // first.is_next()로 확인하지 않고
+								// first == last 로 확인합니다.
+
+	// 즉, 이미 수 많은 알고리즘이 "끝의 확인을 == "로 합니다.
+
 }
 
 
