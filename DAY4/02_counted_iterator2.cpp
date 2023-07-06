@@ -3,6 +3,7 @@
 #include <iterator>
 #include <string>
 #include <vector>
+#include <list>
 
 
 // counted_iterator 같은 반복자가 끝에 도달했는지 체크 하려면
@@ -11,9 +12,9 @@
 
 // empty class 로 보초병(sentinel) 타입을 설계 합니다.
 
-struct defualt_sentinel_t {};	// 실제 표준도 아무 멤버가 없는 empty 입니다.
+struct default_sentinel_t {};	// 실제 표준도 아무 멤버가 없는 empty 입니다.
 
-defualt_sentinel_t default_sentinel;
+default_sentinel_t default_sentinel;
 
 
 
@@ -47,11 +48,11 @@ public:
 
 	// 핵심 : counter_iterator 는 
 	// std::default_sentinel_t 타입의 객체하고만, ==, != 연산이 가능합니다
-	bool operator==(const default_sentinel_t& t)
+	bool operator==(const default_sentinel_t& t) const
 	{
 		return count <= 0;
 	}
-	bool operator!=(const default_sentinel_t& t)
+	bool operator!=(const default_sentinel_t& t) const
 	{
 		return count > 0;
 	}
@@ -90,8 +91,8 @@ int main()
 	}
 
 	//----------------------------------------
-	std::vector c{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-//	std::list   c{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+//	std::vector c{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+	std::list   c{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
 	counted_iterator ci2(c.begin(), 5);
 
