@@ -29,7 +29,17 @@ public:
 			return {};
 		}
 		std::suspend_always final_suspend() noexcept { log();  return {}; }
-		Generator get_return_object() { log(); return {}; };
+		
+		// 코루틴이 시작될때 컴파일러가 추가한 코드가
+		// Generator 를 만들기 위해 아래 함수 호출
+		Generator get_return_object()
+		{ 
+			auto h = std::coroutine_handle<promise_type>::
+									from_promise(*this);
+			log(); 
+			return Generator(h);
+		};
+
 		void unhandled_exception() { log(); }
 		void return_void() { log(); }
 	};
@@ -43,11 +53,7 @@ public:
 		:coro_handle(h)
 	{
 	}
-
 };
-
-
-
 
 
 Generator foo()
@@ -57,13 +63,25 @@ Generator foo()
 	// 여기서 main 으로 돌아감..
 	//--------------------------
 	std::cout << "foo 1" << std::endl;
-
 	co_await std::suspend_always{};
 
 	std::cout << "foo 2" << std::endl;
 }
-
 int main()
 {
-	Generator g = foo();
+	Generator g = foo();	// 컴파일러가 추가한 코드만 실행
+	std::cout << "main 1" << std::endl;
+	g.coro_handle.resume();	// foo1 출력
+							// co_await 를 만나면 돌아오게됨
+
+	std::cout << "main 2" << std::endl;
+	g.coro_handle.resume();	// foo2 출력
+	std::cout << "main 3" << std::endl;
+
+	if (g.coro_handle.done())
+	{
+		g.coro_handle.destroy(); // 이렇게 호출해야
+					// new 로 만들었던 코루틴 프레임워크가파괴
+		std::cout << "코루틴 프레임워크 파괴" << std::endl;
+	}
 }
