@@ -23,7 +23,8 @@ int main()
 	// 원리 : erase(vector)
 	//		 erase(list)
 	//       erase(deque) 등으로 모든 컨테이너에 대해 오버로딩한것
-	std::erase(v , 3);
+//	std::erase(v , 3);
+	std::erase_if(v, [](int a) { return a % 2 == 0; });
 
 	for (auto n : v) 
 		std::cout << n << ", ";
