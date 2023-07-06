@@ -35,21 +35,18 @@ public:
 			printf("new : %p, %d bytes\n", p, sz);
 			return p;
 		}
-
 		void operator delete(void* p) noexcept
 		{
 			printf("delete : %p\n", p);
 			::operator delete(p);
 		}
-
 	};
-
 	using promise_type = promise;
 };
-
-
 Generator foo()
 {
+	int x[100];  // 400 byte.. coroutine framework 크기가
+	x[0] = 0;	 // 400바이트 증가
 	// 함수 안에 "co_await" 등의 키워드가 있으면 컴파일러가 아래 코드를 생성합니다.
 	//---------------------------------------------
 	// 1. 코루틴 frame 을 힙에 생성합니다.
