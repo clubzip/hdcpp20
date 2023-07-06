@@ -98,13 +98,51 @@ private:
 };
 
 //-----------------------------------
+/*
+struct suspend_never 
+{
+	constexpr bool await_ready() const noexcept {return true;}
+	constexpr void await_suspend(coroutine_handle<>) const noexcept {}
+	constexpr void await_resume() const noexcept {}
+};
+struct suspend_always 
+{
+	constexpr bool await_ready() const noexcept { return false; }
+	constexpr void await_suspend(coroutine_handle<>) const noexcept {}
+	constexpr void await_resume() const noexcept {}
+};
+*/
 
+struct myawait
+{
+	constexpr bool await_ready() const noexcept { log(); return false; }
+	constexpr void await_suspend(std::coroutine_handle<>) const noexcept { log(); }
+	constexpr void await_resume() const noexcept { log(); }
+};
 
 Generator<int> foo()
 {
 	std::cout << "foo 1" << std::endl;
 	
-	co_await std::suspend_always{};
+	co_await myawait{};
+
+//	co_await std::suspend_always{};
+				// suspend_always 라는 구조체의 임시객체를 만드는 코드.
+				// "Await Object" 라고 합니다.
+				// 위 한줄은 아래의 코드처럼 변경됩니다.
+	//--------------------------------------------
+	/*
+	if (await_object.await_ready() == false)
+	{
+		await_object.await_suspend(코루틴 핸들);
+		
+		이지점에서 코루틴 중단후 main 으로 돌아감
+	}
+	// 재개 될때 
+	await_object.await_resume(); 
+	*/
+	//--------------------------------------------
+				
 
 	std::cout << "foo 2" << std::endl;
 }
