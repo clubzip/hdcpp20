@@ -115,9 +115,14 @@ struct suspend_always
 
 struct myawait
 {
-	constexpr bool await_ready() const noexcept { log(); return false; }
-	constexpr void await_suspend(std::coroutine_handle<>) const noexcept { log(); }
-	constexpr void await_resume() const noexcept { log(); }
+	// 아래 함수의 반환 값이
+	// false : 코루틴 중단하고 main 으로 돌아가기
+	// true  : 코루틴 중단하지 않고 계속 실행
+//	bool await_ready() const noexcept { log(); return false; }
+	bool await_ready() const noexcept { log(); return true; }
+
+	void await_suspend(std::coroutine_handle<>) const noexcept { log(); }
+	void await_resume() const noexcept { log(); }
 };
 
 Generator<int> foo()
