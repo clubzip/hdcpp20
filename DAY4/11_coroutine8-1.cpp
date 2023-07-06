@@ -8,14 +8,15 @@
 // co_await : 실행을 멈추고(suspend) 호출자에 돌아갈때
 // co_yield : ""					""	          값반환!
 
+template<typename T>
 class Generator
 {
 public:
 	class promise
 	{
-		int value;
+		T value;
 	public:
-		int get_value() const { return value; }
+		T get_value() const { return value; }
 
 		std::suspend_always yield_value(int n)
 		{
@@ -57,14 +58,14 @@ public:
 			coro_handle.destroy();
 	}
 
-	int operator()()
+	T operator()()
 	{
 		if (coro_handle && !coro_handle.done())
 		{
 			coro_handle.resume(); // 실행재개 하고
 
 			// 결과를 꺼내서 반환
-			int ret = coro_handle.promise().get_value();
+			T ret = coro_handle.promise().get_value();
 
 			return ret;
 		}
@@ -76,7 +77,7 @@ private:
 };
 
 
-Generator foo()
+Generator<int> foo()
 {
 	//--------------------------
 	// 컴파일러가 생성한 코드가 실행되고
@@ -93,7 +94,7 @@ Generator foo()
 
 int main()
 {
-	Generator g = foo();
+	Generator<int> g = foo();
 	std::cout << "main 1" << std::endl;
 
 	int ret1 = g(); 
