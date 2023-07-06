@@ -1,6 +1,6 @@
 #include <iostream>
 #include <coroutine>
-#define log() std::cout << __func__ << std::endl 
+#define log() std::cout << "==============> " << __func__ << std::endl 
 
 
 // Step 5. 코루틴 핸들이야기
