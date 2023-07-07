@@ -28,7 +28,7 @@ public:
 int main()
 {
 	Point pt(1, 1);  // non-const object
-	Point cpt(1, 1); // const object
+	const Point cpt(1, 1); // const object
 
 	pt.set(10, 20);	 // ok. pt 는 상수가 아니므로 set 호출 가능
 					 // set(&pt, 10, 20) 인데, pt가 const 아니므로 ok
