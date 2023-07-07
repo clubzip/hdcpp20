@@ -19,6 +19,8 @@ public:
 //		x = a; // error
 		self.x = a; // ok
 		self.y = b;
+
+		std::cout << "f2" << std::endl;
 	}
 };
 
