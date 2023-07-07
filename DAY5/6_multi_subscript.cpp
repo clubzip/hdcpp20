@@ -2,6 +2,9 @@
 #include <iostream>
 
 // multi dimension subscript
+// vs 2022 아직 지원 안됨
+// g++13.1 지원.. 
+// g++ 6_multi_subscript.cpp -std=c++23
 
 template<typename T, std::size_t X, std::size_t Y, std::size_t Z>
 class array3d
