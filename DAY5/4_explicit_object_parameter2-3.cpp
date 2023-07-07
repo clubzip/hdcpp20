@@ -40,11 +40,13 @@ public:
 	// 위 2개 함수는 구현이 완전히 동일한데 인자의 타입만 다릅니다.
 	// => 템플릿으로 하면 한개의 함수로.. 위 2개를 자동생성 가능합니다.
 	template<typename U>
-	auto& operator[](this U& self, int idx)
+	std::conditional_t<std::is_const_v<U>, const T&, T&> 
+	operator[](this U& self, int idx)
 	{
-		return self.buff[self.idx];
+		return self.buff[idx];
 	}	
 };
+
 int main()
 {
 	vector v(10, 3);
@@ -63,6 +65,6 @@ int main()
 	int n2 = v2[0];	// O
 
 	v1[0] = 5;		// O
-//	v2[0] = 5;		// X
+	v2[0] = 5;		// X
 }
 
