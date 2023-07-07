@@ -23,6 +23,7 @@ public:
 
 int main()
 {
+	/*
 	{
 		String s1 = "AA";
 		std::cout << s1 << std::endl;
@@ -32,4 +33,16 @@ int main()
 	} // <-- s1 파괴.. 소멸자 호출됩니다.
 
 	std::cout << "out block" << std::endl;
-}
+	*/
+
+
+//	String("aaa"); // 이름 없는 객체(임시객체). 이문장의 끝에서 파괴 됩니다.
+
+
+	// 임시객체를 상수 참조로 가리키면 수명이 연장됩니다.(lifetime extension)
+	const String& r = String("aaa");
+						// 임시객체지만, r 이라는 참조가 가리키므로
+						// 임시객체가 r의 수명으로 연장됩니다.
+
+	std::cout << "---------" << std::endl;
+} // <-- 여기서 r 파괴.
