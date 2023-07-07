@@ -11,7 +11,9 @@
 
 // C++23 
 // => fmt 라이브러리와 유사하게 새로운 표준 출력을 만들었습니다.
-#include <print>
+#include <print> // g++ 13.1 현재 지원 안됨
+				 // visual studio 17.7(preview 버전) 부터 지원
+				 // 오늘 현재 최신 버전 visual studio 17.6.4
 #include <string>
 #include <format>
 
