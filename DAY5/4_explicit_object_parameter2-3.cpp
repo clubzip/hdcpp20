@@ -36,6 +36,8 @@ public:
 	{
 		return self.buff[self.idx];
 	}
+
+
 	*/
 	// 위 2개 함수는 구현이 완전히 동일한데 인자의 타입만 다릅니다.
 	// => 템플릿으로 하면 한개의 함수로.. 위 2개를 자동생성 가능합니다.
@@ -46,6 +48,7 @@ public:
 		return self.buff[idx];
 	}	
 };
+
 
 int main()
 {
@@ -67,4 +70,16 @@ int main()
 	v1[0] = 5;		// O
 	v2[0] = 5;		// X
 }
+/*
+struct vector
+{
+	int size;
+	int* buff;
+};
 
+const vector v;
+v.size : const int
+v.buff : int* const buff 입니다. 즉, buff 가 상수
+        => const int* buff 가 아닙니다.
+즉, v.buff[0] 는 const int 가 아닌 int 입니다.
+*/
