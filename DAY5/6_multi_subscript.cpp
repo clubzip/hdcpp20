@@ -14,7 +14,7 @@ public:
     // C++23 부터 [] 연산자 만들때 인자를 여러개 받아도 됩니다.
     T& operator[](std::size_t x, std::size_t y, std::size_t z)
     {
-        return data[z + y * Y + x * X];
+        return data[z + y * Z + x * Y * Z];
     }
 };
 
