@@ -7,6 +7,8 @@ bool foo(int n)
 {
 	return n % 3 == 0;
 }
+// 함수의 장점 1. 상태를 가진 함수!! 
+// => 아래 IsMod 의 기능을 "일반함수"로 할수 있을까요 ??? 안됩니다.
 
 struct IsMod
 {
@@ -24,8 +26,12 @@ int main()
 
 	int k = 3; 
 
-	IsMod f(k); // f는 단항함수(인자가 한개인 함수) 인데..
+	IsMod f(k); // f는 객체인데, 
+				// ()연산자 함수를 재정의 했으므로 단항함수(인자가 한개인 함수)
+				// 로 사용가능하고, 
 				// 내부적으로 k 값을 보관합니다.
+
+	bool b = f(10); // return 10 % k == 0
 
 	auto ret3 = std::find_if(v.begin(), v.end(), f );
 }
