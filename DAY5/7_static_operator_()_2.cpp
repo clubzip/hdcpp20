@@ -8,15 +8,33 @@ public:
 		return a < b;
 	}
 
+
+
+
 	using F = bool(*)(int, int);
 
 	// 아래 함수가 "변환연산자" 라는 함수 입니다. 
 //	operator F() { return 함수주소; }
 
-	operator F() { return &less::operator(); }
+	//operator F() { return &less::operator(); }
+				// => error
+				// => F 는 일반함수 포인터 타입인데..
+				// => &less::operator() 는 멤버 함수의 주소.
+	
+	// 해결책 
+	// 1. operator() 를 static 멤버 함수로 하면 됩니다.
+	//		=> C++23 부터 가능합니다.
+	//		=> C++23 이전에는 operator() 는 static 이 될수 없습니다.
+
+	// 2. C++23 이전의 해결책
+	//		=> operator() 와 동일한 일을 하는 "static 멤버 함수를 별도로 작성"
+
+	static bool helper(int a, int b)
+	{
+		return a < b;
+	}
+	operator F() { return &less::helper; }
 };
-
-
 
 int main()
 {
