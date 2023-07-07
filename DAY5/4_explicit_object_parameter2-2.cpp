@@ -14,5 +14,5 @@ int main()
 	const Sample cs;
 
 	s.f1();
-	s.f2();
+	cs.f1();
 }
