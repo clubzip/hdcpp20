@@ -43,10 +43,8 @@ public:
 	auto& operator[](this U& self, int idx)
 	{
 		return self.buff[self.idx];
-	}
-	
+	}	
 };
-
 int main()
 {
 	vector v(10, 3);
@@ -65,6 +63,6 @@ int main()
 	int n2 = v2[0];	// O
 
 	v1[0] = 5;		// O
-	v2[0] = 5;		// X
+//	v2[0] = 5;		// X
 }
 
